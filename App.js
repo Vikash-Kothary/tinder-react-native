@@ -1,90 +1,63 @@
-import React from "react";
-import { Text } from "react-native";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
-import styles from "./assets/styles";
-import HomeScreen from "./containers/Home";
-import MatchesScreen from "./containers/Matches";
-import MessagesScreen from "./containers/Messages";
-import ProfileScreen from "./containers/Profile";
-import Icon from "./components/Icon";
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
+import React, { useState } from 'react';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-const App = createBottomTabNavigator(
-	{
-		Explore: {
-			screen: HomeScreen,
-			navigationOptions: {
-				tabBarIcon: ({ focused }) => {
-					const iconFocused = focused ? "#7444C0" : "#363636";
-					return (
-						<Text style={[styles.iconMenu, { color: iconFocused }]}>
-							<Icon name="explore" />
-						</Text>
-					);
-				}
-			}
-		},
-		Matches: {
-			screen: MatchesScreen,
-			navigationOptions: {
-				tabBarIcon: ({ focused }) => {
-					const iconFocused = focused ? "#7444C0" : "#363636";
-					return (
-						<Text style={[styles.iconMenu, { color: iconFocused }]}>
-							<Icon name="heart" />
-						</Text>
-					);
-				}
-			}
-		},
-		Chat: {
-			screen: MessagesScreen,
-			navigationOptions: {
-				tabBarIcon: ({ focused }) => {
-					const iconFocused = focused ? "#7444C0" : "#363636";
-					return (
-						<Text style={[styles.iconMenu, { color: iconFocused }]}>
-							<Icon name="chat" />
-						</Text>
-					);
-				}
-			}
-		},
-		Profile: {
-			screen: ProfileScreen,
-			navigationOptions: {
-				tabBarIcon: ({ focused }) => {
-					const iconFocused = focused ? "#7444C0" : "#363636";
-					return (
-						<Text style={[styles.iconMenu, { color: iconFocused }]}>
-							<Icon name="user" />
-						</Text>
-					);
-				}
-			}
-		}
-	},
-	{
-		tabBarOptions: {
-			activeTintColor: "#7444C0",
-			inactiveTintColor: "#363636",
-			labelStyle: {
-				fontSize: 14,
-				textTransform: "uppercase",
-				paddingTop: 10
-			},
-			style: {
-				backgroundColor: "#FFF",
-				borderTopWidth: 0,
-				paddingVertical: 30,
-				height: 60,
-				marginBottom: 0,
-				shadowOpacity: 0.05,
-				shadowRadius: 10,
-				shadowColor: "#000",
-				shadowOffset: { height: 0, width: 0 }
-			}
-		}
-	}
-);
+import AppNavigator from './src/navigation/AppNavigator';
 
-export default createAppContainer(App);
+export default function App(props) {
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
+
+  if (!isLoadingComplete && !props.skipLoadingScreen) {
+    return (
+      <AppLoading
+        startAsync={loadResourcesAsync}
+        onError={handleLoadingError}
+        onFinish={() => handleFinishLoading(setLoadingComplete)}
+      />
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+        <AppNavigator />
+      </View>
+    );
+  }
+}
+
+async function loadResourcesAsync() {
+  await Promise.all([
+    Asset.loadAsync([
+      require('./src/assets/images/robot-dev.png'),
+      require('./src/assets/images/robot-prod.png'),
+    ]),
+    Font.loadAsync({
+      // This is the font that we are using for our tab bar
+      ...Ionicons.font,
+      // We include SpaceMono because we use it in HomeScreen.js. Feel free to
+      // remove this if you are not using it in your app
+      'space-mono': require('./src/assets/fonts/SpaceMono-Regular.ttf'),
+      'tinderclone': require('./src/assets/fonts/tinderclone.ttf'),
+    }),
+  ]);
+}
+
+function handleLoadingError(error) {
+  // In this case, you might want to report the error to your error reporting
+  // service, for example Sentry
+  console.warn(error);
+}
+
+function handleFinishLoading(setLoadingComplete) {
+  setLoadingComplete(true);
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

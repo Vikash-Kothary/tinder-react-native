@@ -1,46 +1,56 @@
 {
-	"name": "tinder-react-native",
-	"description": "Tinder React Native clone",
-	"version": "0.2.0",
-	"author": "Steven Persia",
-	"licence": "MIT",
-	"homepage": "https://github.com/stevenpersia/tinder-react-native",
-	"private": true,
-	"scripts": {
-		"lint": "eslint ./components ./containers --fix",
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"react": "16.6.3",
-		"react-native": "^0.59.9",
-		"react-native-card-stack-swiper": "^1.1.0",
-		"react-native-gesture-handler": "^1.0.12",
-		"react-navigation": "^3.0.9"
-	},
-	"devDependencies": {
-		"babel-jest": "^24.8.0",
-		"eslint": "^6.6.0",
-		"eslint-config-standard": "^14.1.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-node": "^10.0.0",
-		"eslint-plugin-promise": "^4.2.1",
-		"eslint-plugin-react": "^7.16.0",
-		"eslint-plugin-react-native": "^3.8.1",
-		"eslint-plugin-standard": "^4.0.1",
-		"jest": "^24.8.0",
-		"metro-react-native-babel-preset": "0.51.1",
-		"react-test-renderer": "16.6.3"
-	},
-	"jest": {
-		"preset": "react-native",
-		"transform": {
-			"node_modules/react-native/.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-		}
-	},
-	"rnpm": {
-		"assets": [
-			"./assets/fonts/"
-		]
-	}
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "lint": "eslint src",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/samples": "~36.0.0",
+    "@expo/vector-icons": "~10.0.0",
+    "@react-navigation/web": "~1.0.0-alpha.9",
+    "expo": "~36.0.0",
+    "expo-asset": "~8.0.0",
+    "expo-constants": "~8.0.0",
+    "expo-font": "~8.0.0",
+    "expo-web-browser": "~8.0.0",
+    "prop-types": "^15.7.2",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-card-stack-swiper": "^1.2.4",
+    "react-native-gesture-handler": "^1.5.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "~4.0.10",
+    "react-navigation-stack": "~1.10.3",
+    "react-navigation-tabs": "~2.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-react-native": "^3.8.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest-expo": "~36.0.1",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "^16.13.1"
+  },
+  "private": true
 }
